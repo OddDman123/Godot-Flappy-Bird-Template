@@ -1,5 +1,5 @@
 ## Godot Flappy Bird Template
 
-Download this Repository using the green code button and selecting download zip!
+Download this Repository using the green Code button and selecting "Download Zip"!
 
 Them import the downloaded zip file into Godot
