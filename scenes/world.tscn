@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpwfjt1koogmi"]
+
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_vt2xv"]
+[ext_resource type="Script" path="res://scripts/worm.gd" id="2_dydsq"]
+[ext_resource type="PackedScene" uid="uid://bve580kwbk7ti" path="res://scenes/screws.tscn" id="2_pes7j"]
+[ext_resource type="Texture2D" uid="uid://boy5l253ymv3d" path="res://Sprites/u.png" id="3_60vwh"]
+[ext_resource type="Texture2D" uid="uid://3oth8luqijx4" path="res://Sprites/jetpack worm.png" id="3_203c1"]
+[ext_resource type="PackedScene" uid="uid://d07m084y15v2l" path="res://scenes/Scroll.tscn" id="4_juisn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r15qs"]
+height = 28.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_mumq0"]
+font_size = 32
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_vt2xv")
+screw_scene = ExtResource("2_pes7j")
+
+[node name="Backround" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(128, 120)
+texture = ExtResource("3_60vwh")
+
+[node name="Ground" parent="." instance=ExtResource("4_juisn")]
+z_index = 1
+
+[node name="Worm" type="CharacterBody2D" parent="."]
+position = Vector2(56, 128)
+script = ExtResource("2_dydsq")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Worm"]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_r15qs")
+
+[node name="JetpackWorm" type="Sprite2D" parent="Worm"]
+texture = ExtResource("3_203c1")
+
+[node name="WormSoundPlayer" type="AudioStreamPlayer2D" parent="Worm"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 112.0
+offset_top = 8.0
+offset_right = 144.0
+offset_bottom = 53.0
+text = "0"
+label_settings = SubResource("LabelSettings_mumq0")
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="SoundPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="hit" from="Worm" to="." method="_on_worm_hit"]
+[connection signal="scored" from="Worm" to="." method="_on_worm_scored"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

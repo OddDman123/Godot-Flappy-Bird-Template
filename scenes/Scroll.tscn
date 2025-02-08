@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://d07m084y15v2l"]
+
+[ext_resource type="Script" path="res://scripts/Scrolling.gd" id="1_yuwsa"]
+[ext_resource type="Texture2D" uid="uid://b8ifgkahh4fe1" path="res://Sprites/ground.png" id="2_aawou"]
+[ext_resource type="Script" path="res://scripts/hit_box.gd" id="2_kgwbu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_myxfk"]
+size = Vector2(512, 18)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_yuwsa")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("2_kgwbu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+z_index = 1
+position = Vector2(256, 4)
+shape = SubResource("RectangleShape2D_myxfk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+z_index = 1
+position = Vector2(256, 235)
+shape = SubResource("RectangleShape2D_myxfk")
+
+[node name="Ground2" type="Sprite2D" parent="."]
+position = Vector2(128, 0)
+rotation = -3.14159
+texture = ExtResource("2_aawou")
+
+[node name="Ground3" type="Sprite2D" parent="."]
+position = Vector2(384, 0)
+rotation = -3.14159
+texture = ExtResource("2_aawou")
+
+[node name="Ground" type="Sprite2D" parent="."]
+position = Vector2(128, 240)
+texture = ExtResource("2_aawou")
+
+[node name="Ground4" type="Sprite2D" parent="."]
+position = Vector2(384, 240)
+texture = ExtResource("2_aawou")
+
+[connection signal="body_entered" from="Hitbox" to="Hitbox" method="_on_body_entered"]
